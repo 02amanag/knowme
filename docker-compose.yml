@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+    dbserver:
+        build: db 
+        restart: always
+        networks:
+            testing_net:
+              ipv4_address: 172.28.1.1
+        ports:
+            - 5430:5432
+
+    backend:
+        build: .
+        depends_on:
+            - dbserver
+        networks:
+            testing_net:
+              ipv4_address: 172.28.1.2
+        ports:
+            - 8082:8080
+
+
+networks:
+  testing_net:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

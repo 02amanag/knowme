@@ -1,0 +1,62 @@
+CREATE TABLE users(
+   ID SERIAL PRIMARY KEY     NOT NULL,
+   FNAME           TEXT    NOT NULL,
+   LNAME           TEXT    NOT NULL,
+   EMAIL             VARCHAR(50),
+   PASSWORD    text
+);
+
+CREATE TABLE uniquecode(
+   code TEXT NOT NULL,
+   emailid TEXT NOT NULL,
+   passwordset boolean
+);
+
+CREATE TABLE Achievements(
+   ID SERIAL PRIMARY KEY NOT NULL,
+   NAME TEXT NOT NULL,
+   Description text,
+   LINK text
+);
+
+CREATE TABLE USERNAMES(
+   USERNAME TEXT PRIMARY KEY UNIQUE NOT NULL,
+   USER_ID integer REFERENCES USERS(ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Sections(
+   USERNAME TEXT references USERNAMES(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
+   NAME TEXT NOT NULL,
+   ID SERIAL PRIMARY KEY NOT NULL   
+);
+
+CREATE TABLE sections_achievements(
+   section_id integer REFERENCES Sections(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+   Achievement_ID integer REFERENCES Achievements(ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE USERDETAILS(
+    USERNAME TEXT references USERNAMES(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
+    FirstName                text  ,
+    LastName                 text  ,
+    bio                      text,
+    Designation_stand         text,
+    ContactNumber            text  ,
+    EmailId                  text,  
+    CurrentLocation          text
+);
+
+insert into users(fname,lname,email,password ) values ('test1','lastetest','test@test.com' ,'$2a$10$FHmUKhwWOpfS8hxwr.y05e79hQCBHlPldaaAwBiZshR7bNrJPfayi');
+
+insert into usernames values('test',1);
+
+insert into sections(username, name) values ('test','certificates'),('test','expirences'),('test','prjects');
+
+insert into Achievements(name,description,link) values('linkedin','positive site','www.linkedin.com'),('hackerR','positive hsckrt sfgsukg dgfksdbfksdha dhsgfas','www.hacker.com'),('linuxworld','vial daga site','www.linusworld.com'),('testing portal','quant site','www.testter.com'),('testproject','','www.with no bio.com'); 
+
+insert into sections_achievements values (1,1),(1,2),(2,3),(3,4),(3,5);
+
+insert into USERDETAILS values ('test','testFname','testLname','its a test account bio where it is represention what to be done and what not , or we can say a sort discription about self','test is Software Engineer','0999999999','test@test.com','india');
+
+pg_dump resume02>resume02.sql
+cd var/lib/postgres 

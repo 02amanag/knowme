@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" style="padding-left: 180px; padding-right: 180px;" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <style>
+        #organisation {
+            font-size: 14px;
+            line-height: 0.5;
+            letter-spacing: 0.017em;
+            padding-left: 50px;
+        }
+        #sections {
+            padding-top: 3px;
+        }
+        #blocks {
+            padding-top: 2px;
+            padding-left: 14px;
+            line-height: 0.7;
+        }
+        #ProfilePicture {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #Name{
+            font-size: 30px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        } 
+        #Username{
+            font-size: 28px;
+            margin-top: 2px;
+            margin-bottom: 08px;
+        }
+        #Bio{
+            font-size: 18px;
+            margin-top: 5px;
+            margin-bottom: 08px;
+        }
+        .ProfileHeader {
+            text-align: center;
+        }
+    </style>     
+    <div class="ProfileHeader">
+       <b><img id="ProfilePicture" src="https://ci5.googleusercontent.com/proxy/4YXfzbYuEff_mQHFQxhQ_zH_ZWkpc7tvhjI-3PGD3g3Y1BUm0Du582-UIkX4eCn3DbYn58RqsHK-0L2eQMn__dBLfK23f6BsjNKGBONF01doB9tPA4kWodq9e3DO8SPZQo-hijNuvKWQZYKx9xxovxoDWa6ABZwHjoW3KtDFIt52NaLoyoRNowP6O2W81y1Zyh19Tl2whMRTHk5VFg=s0-d-e1-ft#https://docs.google.com/uc?export=download&amp;id=1_1Jb3wcCDjhSvWkfRQG8g-OSxBcRkqEj&amp;revid=0B_Ae2C3NrT9fU1RQRzJTOHc5clU3aEoxU3RkdzBPSkcxRkt3PQ" width="250" height="250" ></b>
+        
+        {{ range .UserDetails }}
+            <p id="Name" ><b>{{ .FirstName }} {{ .LastName }}</b></p>
+           <p id="Username" >@{{ .Username }}</p>
+            <p id="Bio">Bio need to come here</p>
+        {{ end }}
+    </div>  
+
+   <div id="sections"> 
+        <h2 style="margin-bottom: 0px;">Social Profiles</h2>
+        {{ range .SocialProfiles }}
+            <div id="blocks">
+                <p>Username : @{{ .Username }}</p>
+                <a href={{ .Link }}>Link</a>
+                <div id="organisation">
+                    {{ range .OrganisationDetails }}
+                        <h3>Organisation</h3>
+                        <p>Name : {{ .Name }}</p>
+                        <a href={{ .Link }}>Website</a>
+                    {{ end }}
+                </div>
+            </div>
+        {{ end }}
+    </div>
+
+    <div id="sections"> 
+        <h2 style="margin-bottom: 0px;">Certificates</h2>
+        {{ range .Certificates }}
+        <div id="blocks">
+            <p>Name : {{ .Name }}</p>
+            <p>Description : {{ .Description }}</p>
+            <a href={{ .Link }}>Link</a>
+            <div id="organisation">
+                {{ range .OrganisationDetails }}
+                    <h3>Organisation</h3>
+                    <p>Name : {{ .Name }}</p>
+                    <a href={{ .Link }}>Website</a>
+                {{ end }}
+            </div>
+        </div>
+            
+        {{ end }}
+    </div>
+
+    <div id="sections"> 
+        <h2 style="margin-bottom: 0px;">Projects</h2>
+        {{ range .Projects }}
+        <div id="blocks">
+            <p>Name : {{ .Name }}</p>
+            <p>Description : {{ .Description }}</p>
+            <div id="organisation">
+                {{ range .OrganisationDetails }}
+                    <h3>Organisation</h3>
+                    <p>Name : {{ .Name }}</p>
+                    <a href={{ .Link }}>Website</a>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+    <div id="sections"> 
+        <h2 style="margin-bottom: 0px;">Contacts</h2>
+        {{ range .UserDetails }}
+        <div id="blocks">
+            <p>Mobile Number : {{ .ContactNumber }}</p>
+            <p>Email : {{ .EmailId }}</p>
+            <p>Place : {{ .CurrentLocation }}</p>
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- To Download Resume : {{ .DownloadLink }} -->
+    <a href="download%20link%20to%20attach" style="padding-left: 626px;">Download Resume</a>
+</body>
+</html> 
