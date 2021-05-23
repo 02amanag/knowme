@@ -19,7 +19,7 @@ type Configure struct {
 func (c Configure) GetConfig(key string) (string, error) {
 	err := godotenv.Load(c.path)
 	if err != nil {
-		log.Fatalf("Error loading .env file -> " + c.path)
+		log.Println("Error loading .env file -> " + c.path)
 	}
 	value, ok := os.LookupEnv(key)
 	if !ok {

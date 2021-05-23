@@ -16,7 +16,7 @@ func (s *ServiceStruct) GenerateQr(ctx *gin.Context) {
 	} else {
 		path, err := filepath.Abs("file/qr")
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		ctx.FileAttachment(path+"/qr.png", accessDetails.Username)
 	}
@@ -30,7 +30,7 @@ func (s *ServiceStruct) GetQr(ctx *gin.Context) {
 	} else {
 		path, err := filepath.Abs("file/qr")
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		ctx.FileAttachment(path+"/qr.png", username+"_qr.png")
 	}

@@ -80,7 +80,7 @@ func (u *UsecaseStruct) GetSections(username string) ([]model.Section, error) {
 func (u *UsecaseStruct) GetProfilePicture(username string) (path string) {
 	path, err := filepath.Abs("file/profilePicture")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	imgFile, err := os.Open(path + "/" + username + ".jpeg")

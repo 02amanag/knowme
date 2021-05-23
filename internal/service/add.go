@@ -22,3 +22,19 @@ func (s *ServiceStruct) AddProfile(ctx *gin.Context) {
 		helper.DisplayError(ctx, err.Error(), 406)
 	}
 }
+
+func (s ServiceStruct) AddUsername(ctx *gin.Context) {
+	var entity model.RegisterUsername
+
+	if ctx.ShouldBindJSON(&entity) != nil {
+		helper.DisplayError(ctx, "Invalid form", 406)
+		return
+	}
+	accessDetails, _ := s.usecase.ExtractTokenMetadata(ctx.Request)
+	err := s.usecase.AddUsername(entity.Username , accessDetails.UserID)
+	if err == nil {
+		ctx.JSON(http.StatusOK, gin.H{"Message": "Username registered"})
+	} else {
+		helper.DisplayError(ctx, err.Error(), 406)
+	}
+}

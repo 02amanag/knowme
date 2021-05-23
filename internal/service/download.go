@@ -11,7 +11,7 @@ func (s *ServiceStruct) DownloadResume(ctx *gin.Context) {
 	username := ctx.Param("username")
 	path, err := filepath.Abs("file/resume")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	ctx.FileAttachment(path+"/"+username+".pdf", username+"_resume.pdf")

@@ -70,23 +70,22 @@ func Run() {
 	{
 		v2.GET("/login", serviceObject.Login)
 		v2.GET("/singup", serviceObject.SingUp)
-		v2.GET("/getqr", TokenAuthMiddleware(), serviceObject.GenerateQr)
+		// v2.GET("/getqr", TokenAuthMiddleware(), serviceObject.GenerateQr)
 
 		v3 := server.Group("add")
 		{
 			//update, add , delete endpoint
 			// Token Will be needed
+			v3.POST("/username", TokenAuthMiddleware(), serviceObject.AddUsername)
 			v3.POST("/profile", TokenAuthMiddleware(), serviceObject.AddProfile)
 			v3.POST("/uploadresume", TokenAuthMiddleware(), serviceObject.UploadResume)
 			v3.POST("/uploadprofilepicture", TokenAuthMiddleware(), serviceObject.UploadProfilePicture)
-
-
 		}
 	}
 
 	port, err := ConfigService.GetConfig("PORT")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	server.Run(":" + port)

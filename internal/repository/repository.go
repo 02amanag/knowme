@@ -124,3 +124,12 @@ func (r *RepositoryStruct) InsertSectionAchievement(sectionsId, achievementId in
 	}
 	return nil
 }
+
+func (r *RepositoryStruct) AddUsername(username string, userId int64) error {
+	_, err := db.GetDB().Query("insert into usernames values ($1,$2);", username, userId)
+	defer db.CloseDB()
+	if err != nil {
+		return err
+	}
+	return nil
+}

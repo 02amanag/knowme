@@ -68,5 +68,9 @@ type SingUp struct {
 
 type AddData struct {
 	UserDetails UserDetails `json:"userDetails"`
-	Sections    []Section	`json:"sections"`
+	Sections    []Section   `json:"sections"`
+}
+
+type RegisterUsername struct {
+	Username string `json:"username"`
 }

@@ -32,3 +32,13 @@ func (u *UsecaseStruct) AddData(data model.AddData, username string) error {
 
 	return nil
 }
+
+func (u *UsecaseStruct) AddUsername(username string, userId int64) error {
+	err := u.repo.AddUsername(username, userId)
+	if err != nil {
+		if err.Error() != "username alredy present" {
+			return err
+		}
+	}
+	return nil
+}

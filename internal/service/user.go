@@ -18,6 +18,9 @@ func (s *ServiceStruct) Login(ctx *gin.Context) {
 	}
 
 	token, username, err := s.usecase.Login(entity.Email, entity.Password)
+	if username == "" {
+		username = "register username at pirority through /add/username"
+	}
 	if err == nil {
 		ctx.JSON(http.StatusOK, gin.H{"Message": "User signed in", "Token": token, "Username": username})
 	} else {
