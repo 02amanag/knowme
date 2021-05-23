@@ -62,9 +62,7 @@ func Run() {
 	v1 := server.Group("/show")
 	{
 		v1.GET("/profile/:username", serviceObject.GetProfile) //complete profile
-		// v1.GET("/userdetails/:username", serviceObject.GetUserDetails)
 		v1.GET("/downloadresume/:username", serviceObject.DownloadResume)
-		//download qr
 		v1.GET("/downloadqr/:username", serviceObject.GetQr)
 	}
 
@@ -79,7 +77,9 @@ func Run() {
 			//update, add , delete endpoint
 			// Token Will be needed
 			v3.POST("/profile", TokenAuthMiddleware(), serviceObject.AddProfile)
-			v3.POST("/uploadresume", TokenAuthMiddleware(), serviceObject.UploadSingleFile)
+			v3.POST("/uploadresume", TokenAuthMiddleware(), serviceObject.UploadResume)
+			v3.POST("/uploadprofilepicture", TokenAuthMiddleware(), serviceObject.UploadProfilePicture)
+
 
 		}
 	}
