@@ -22,7 +22,7 @@ func (u *UsecaseStruct) GenerateQr(username string) error {
 		log.Panicln("error - ", err)
 	}
 
-	link := prPathLink + "/" + username //get from env
+	link := prPathLink + "/show/profile" + username //get from env
 
 	qrCreator, err := u.config.GetConfig("QR_CREATOR")
 	if err != nil {
