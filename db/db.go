@@ -58,11 +58,6 @@ func Init() {
 	}
 
 	db = &gorp.DbMap{Db: dbOpen, Dialect: gorp.PostgresDialect{}}
-
-	db.Exec()
-	psql -U postgres -h localhost testportal < dbtest.sql
-	exec.Command("psql", "-U", "{username}", "-p{db password}", "{db name}",
-		"-e", "source {file abs path}")
 }
 
 func GetDB() *gorp.DbMap {
