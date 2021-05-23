@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
+	"os/exec"
 
 	"github.com/02amanag/p-02/config"
 	"github.com/go-gorp/gorp"
@@ -20,30 +20,34 @@ func Init() {
 
 	conf := config.NewConfig(".env")
 
-	// SECRET_KEY is one of the key whose value is fetch and used
-	dbhost, err := conf.GetConfig("DB_HOST")
+	// // SECRET_KEY is one of the key whose value is fetch and used
+	// dbhost, err := conf.GetConfig("DB_HOST")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// dbuser, err := conf.GetConfig("DB_USER")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// dbpass, err := conf.GetConfig("DB_PASS")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// dbname, err := conf.GetConfig("DB_NAME")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// psqlInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", dbhost, dbuser, dbpass, dbname)
+
+	dburl, err := conf.GetConfig("DATABASE_URL")
 	if err != nil {
 		panic(err)
 	}
-
-	dbuser, err := conf.GetConfig("DB_USER")
-	if err != nil {
-		panic(err)
-	}
-
-	dbpass, err := conf.GetConfig("DB_PASS")
-	if err != nil {
-		panic(err)
-	}
-
-	dbname, err := conf.GetConfig("DB_NAME")
-	if err != nil {
-		panic(err)
-	}
-
-	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", dbhost, dbuser, dbpass, dbname)
-
-	dbOpen, err := sql.Open("postgres", psqlInfo)
+	dbOpen, err := sql.Open("postgres", dburl)
 	if err != nil {
 		panic(err)
 	}
@@ -54,6 +58,11 @@ func Init() {
 	}
 
 	db = &gorp.DbMap{Db: dbOpen, Dialect: gorp.PostgresDialect{}}
+
+	db.Exec()
+	psql -U postgres -h localhost testportal < dbtest.sql
+	exec.Command("psql", "-U", "{username}", "-p{db password}", "{db name}",
+		"-e", "source {file abs path}")
 }
 
 func GetDB() *gorp.DbMap {
