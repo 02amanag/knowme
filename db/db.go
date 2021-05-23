@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"os/exec"
 
 	"github.com/02amanag/p-02/config"
 	"github.com/go-gorp/gorp"
