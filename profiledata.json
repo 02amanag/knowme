@@ -1,0 +1,75 @@
+{
+    "userDetails": {
+        "firstName": "Khushi",
+        "lastName": "Agarwal",
+        "username": "khushi",
+        "contactNumber": "9887743229",
+        "emailId": "khushimangal44@gmail.com",
+        "currentLocation": "Ahemdabad",
+        "bio": "Enthusiastic to Explore",
+        "Designation_stand": "BCA Graduate"
+    },
+    "sections": [{
+            "name": "Education",
+            "achievements": [{
+                    "name": "Bachelor of Computer Application",
+                    "description": "2018-2021"
+                },
+                {
+                    "name": "Higher Senior Secondary",
+                    "description": "2016-2018"
+                },
+                {
+                    "name": "Senior Secondary",
+                    "description": "2016"
+                }
+            ]
+        },
+        {
+            "name": "Certificates",
+            "achievements": [{
+                    "name": "Ethical Hacking for Absolute Beginners",
+                    "description": "Udemy 2020"
+                },
+                {
+                    "name": "Scratch to Advance Java Programming ",
+                    "description": "Udemy 2020"
+                },
+                {
+                    "name": "Basic JQuery Course",
+                    "description": "Eduonix 2020"
+                },
+                {
+                    "name": "Explore ML",
+                    "description": "Nirma University 2019"
+                }
+            ]
+        },
+        {
+            "name": "Social Accounts",
+            "achievements": [{
+                    "name": "Instagram",
+                    "description": "@khushiaagarwal_",
+                    "link": "https://www.instagram.com/khushiaagarwal_"
+                },
+                {
+                    "name": "LinkedIn",
+                    "description": "@khushi-ag",
+                    "link": "https://www.linkedin.com/in/khushi-ag/"
+                },
+                {
+                    "name": "YouTube",
+                    "description": "khusshhii",
+                    "link": "https://www.youtube.com/channel/UCNWFNnf-F2xrlJnx4dvIg8g"
+                }
+            ]
+        },
+        {
+            "name": "Projects",
+            "achievements": [{
+                "name": "Go-Mechanic",
+                "description": "It is a web application development, basically provided effective online monitoring of thecustomer 's vehicle which has to be serviced."
+            }]
+        }
+    ]
+}

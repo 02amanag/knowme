@@ -90,9 +90,11 @@ func (r *RepositoryStruct) InsertUserdetails(username string, userDetails model.
 	if err != nil {
 		return err
 	}
-	if presentUserDetails[0].EmailId == userDetails.EmailId {
+
+	if len(presentUserDetails) > 0 && presentUserDetails[0].EmailId == userDetails.EmailId {
 		return errors.New("userdetails alredy present")
 	}
+
 	_, err = db.GetDB().Query("insert into userdetails ( username , firstname , lastname,bio , designation_stand , contactnumber ,emailid, currentlocation) values ($1,$2,$3,$4,$5,$6,$7,$8);",
 		username, userDetails.FirstName, userDetails.LastName, userDetails.Bio, userDetails.Designation_stand, userDetails.ContactNumber, userDetails.EmailId, userDetails.CurrentLocation)
 	defer db.CloseDB()
