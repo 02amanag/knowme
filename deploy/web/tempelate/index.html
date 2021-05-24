@@ -83,7 +83,7 @@
             color: #FFF;
             left: 0;
             right: 0;
-            padding: 1% 15% 15% 15%;
+            padding: 1% 15% 1.5% 15%;
         }
         
         @keyframes animStar {
@@ -125,7 +125,7 @@
             background-color: #8eb6e4;
             margin-top: 10px;
             padding-top: 2px;
-            padding-left: 20px;
+            padding-left: 1.4%;
             line-height: 1.2;
         }
         
@@ -187,7 +187,7 @@
                 <h2 style="margin-bottom: 1px; margin-top: 1px; padding-left: 2px;">{{ .Name }}</h2>
                 {{ range .Achievements }}
                 <div id="achievement">
-                    <p style="margin-top: 8px;">{{ .Name }}</p>
+                    <p style="margin-top: 8px; font-weight: 600;">{{ .Name }}</p>
                     <p style="font-style: italic;font-size: 14px;">{{ .Description }}</p>
                     <a href="https://{{.Link}}" target="_blank" rel="noopener noreferrer">{{.Link}}</a>
                 </div>
