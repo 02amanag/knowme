@@ -31,7 +31,7 @@ func (s ServiceStruct) AddUsername(ctx *gin.Context) {
 		return
 	}
 	accessDetails, _ := s.usecase.ExtractTokenMetadata(ctx.Request)
-	err := s.usecase.AddUsername(entity.Username , accessDetails.UserID)
+	err := s.usecase.AddUsername(entity.Username, accessDetails.UserID)
 	if err == nil {
 		ctx.JSON(http.StatusOK, gin.H{"Message": "Username registered"})
 	} else {

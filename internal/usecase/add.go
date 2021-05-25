@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"log"
+
 	"github.com/02amanag/p-02/internal/model"
 )
 
@@ -8,9 +10,7 @@ func (u *UsecaseStruct) AddData(data model.AddData, username string) error {
 
 	err := u.repo.InsertUserdetails(username, data.UserDetails)
 	if err != nil {
-		if err.Error() != "userdetails alredy present" {
-			return err
-		}
+		log.Println(err.Error())
 	}
 
 	for _, i := range data.Sections {
