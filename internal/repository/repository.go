@@ -18,14 +18,14 @@ func NewRepositoryStruct() *RepositoryStruct {
 func GetUserID(username string) int {
 	var user_id int
 	_ = db.GetDB().QueryRow("select user_id from usernames where username = $1", username).Scan(&user_id)
-	defer db.CloseDB()
+	db.CloseDB()
 	fmt.Println(user_id)
 	return user_id
 }
 
 func GetAchievements(Id int) (achievements []model.Achievement, err error) {
 	_, err = db.GetDB().Select(&achievements, "SELECT * FROM achievements WHERE id=$1", Id)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func GetAchievements(Id int) (achievements []model.Achievement, err error) {
 
 func GetUserDetails(username string) (userDetails []model.UserDetails, err error) {
 	_, err = db.GetDB().Select(&userDetails, "SELECT * FROM USERDETAILS WHERE USERNAME=$1", username)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func GetUserDetails(username string) (userDetails []model.UserDetails, err error
 
 func GetSections(username string) (sections []model.Section, err error) {
 	_, err = db.GetDB().Select(&sections, "select name,id from sections where username=$1", username)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func GetSections(username string) (sections []model.Section, err error) {
 
 func GetAchievementId(Id int) (achievement_id []model.Sections_achievements, err error) {
 	_, err = db.GetDB().Select(&achievement_id, "SELECT achievement_id FROM sections_achievements WHERE section_id=$1", Id)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func GetAchievementId(Id int) (achievement_id []model.Sections_achievements, err
 
 func (r *RepositoryStruct) GetUsers(email string) (user model.User) {
 	err := db.GetDB().SelectOne(&user, "SELECT * FROM users where email=$1", email)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return model.User{}
 	}
@@ -71,13 +71,13 @@ func (r *RepositoryStruct) GetUsers(email string) (user model.User) {
 func (r *RepositoryStruct) GetUsername(userId int) string {
 	var username string
 	_ = db.GetDB().QueryRow("select username from usernames where user_id = $1", userId).Scan(&username)
-	defer db.CloseDB()
+	db.CloseDB()
 	return username
 }
 
 func (r *RepositoryStruct) CreateUser(email, password, fname, lname string) error {
 	_, err := db.GetDB().Query("insert into users ( fname , lname, email , password) values ($1,$2,$3,$4);", fname, lname, email, password)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return err
 	}
@@ -97,7 +97,7 @@ func (r *RepositoryStruct) InsertUserdetails(username string, userDetails model.
 
 	_, err = db.GetDB().Query("insert into userdetails ( username , firstname , lastname,bio , designation_stand , contactnumber ,emailid, currentlocation) values ($1,$2,$3,$4,$5,$6,$7,$8);",
 		username, userDetails.FirstName, userDetails.LastName, userDetails.Bio, userDetails.Designation_stand, userDetails.ContactNumber, userDetails.EmailId, userDetails.CurrentLocation)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return err
 	}
@@ -107,33 +107,39 @@ func (r *RepositoryStruct) InsertUserdetails(username string, userDetails model.
 func (r *RepositoryStruct) InsertSection(userName, sectionName string) int {
 	var id int
 	db.GetDB().QueryRow("select id from sections where username = $1 and name = $2 ;", userName, sectionName).Scan(&id)
+	db.CloseDB()
 	if id != 0 {
 		return id
 	}
 	_ = db.GetDB().QueryRow("insert into sections ( username , name) values ($1,$2) returning id;", userName, sectionName).Scan(&id)
-	defer db.CloseDB()
+	db.CloseDB()
 	return id
 }
 
 func (r *RepositoryStruct) InsertAchievement(name, description, link string) int {
 	var id int
 	db.GetDB().QueryRow("select id from achievements where name = $1 and description = $2 and link = $3;", name, description, link).Scan(&id)
+	db.CloseDB()
 	if id != 0 {
 		return id
 	}
 	db.GetDB().QueryRow("insert into achievements (name,description,link ) values ($1,$2,$3) returning id;", name, description, link).Scan(&id)
-	defer db.CloseDB()
+	db.CloseDB()
 	return id
 }
 
 func (r *RepositoryStruct) InsertSectionAchievement(sectionsId, achievementId int) error {
 	var id int
 	db.GetDB().QueryRow("select section_id from sections_achievements where section_id = $1 and achievement_id =$2;", sectionsId, achievementId).Scan(&id)
+	db.CloseDB()
 	if id != 0 {
 		return nil
 	}
+
+	fmt.Println("Right Here DDB")
+
 	_, err := db.GetDB().Query("insert into sections_achievements (section_id , achievement_id) values ($1,$2);", sectionsId, achievementId)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return err
 	}
@@ -142,7 +148,7 @@ func (r *RepositoryStruct) InsertSectionAchievement(sectionsId, achievementId in
 
 func (r *RepositoryStruct) AddUsername(username string, userId int64) error {
 	_, err := db.GetDB().Query("insert into usernames values ($1,$2);", username, userId)
-	defer db.CloseDB()
+	db.CloseDB()
 	if err != nil {
 		return err
 	}
